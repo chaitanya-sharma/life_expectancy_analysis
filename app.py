@@ -26,10 +26,10 @@ app=Flask(__name__)           #starting point of the flask app
 
 # load model weights and biases and the scaler
 model=LinearRegression()  
-with open("life_expectancy_ann.pickle","rb") as fp:
+with open("life_expectancy_ann_1.pkl","rb") as fp:
     model.load_state_dict(pickle.load(fp))
 
-scaler=pickle.load(open('scaler.pickle','rb'))
+scaler=pickle.load(open('scaler_1.pickle','rb'))
 
 @app.route('/')
 def home():
@@ -41,9 +41,15 @@ def predict_api():
     print(data)
     print(np.array(list(data.values())).reshape(1,-1))
     new_data=scaler.transform(np.array(list(data.values())).reshape(1,-1))
-    output=model(new_data)
-    print(output[0])
-    return jsonify(output[0])
+    new_data = torch.from_numpy(new_data).float()
+    # output=model(new_data)
+    # print(output[0])
+    # return jsonify(output[0])
+    output = model(new_data)
+    prediction = output.tolist()  # Convert tensor to a list
+    data = {"prediction": prediction}  # Create a dictionary
+    return jsonify(data)
+
 
 if __name__=="__main__":
     app.run(debug=True)
