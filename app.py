@@ -41,15 +41,22 @@ def predict_api():
     print(data)
     print(np.array(list(data.values())).reshape(1,-1))
     new_data=scaler.transform(np.array(list(data.values())).reshape(1,-1))
-    new_data = torch.from_numpy(new_data).float()
-    # output=model(new_data)
-    # print(output[0])
-    # return jsonify(output[0])
+    new_data = torch.from_numpy(new_data).float() #convert from numpy to tensor
     output = model(new_data)
     prediction = output.tolist()  # Convert tensor to a list
     data = {"prediction": prediction}  # Create a dictionary
     return jsonify(data)
 
+@app.route('/predict', methods=['POST'])
+def predict():
+    input=[float(x) for x in request.form.values()]
+    # print(input)
+    # scaled_input=scaler.transform(np.array(list(input.values())).reshape(1,-1))
+    scaled_input = scaler.transform(np.array(input).reshape(1,-1))
+    scaled_input=torch.from_numpy(scaled_input).float()
+    output=model(scaled_input)
+    output=output.tolist()
+    return render_template("home.html", prediction_text="The predicted life expectancy is {}".format(output)) 
 
 if __name__=="__main__":
     app.run(debug=True)

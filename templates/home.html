@@ -1,1 +1,176 @@
-<h1> Hello World </h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Expectancy Predictor</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hind:300" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
+  <style>
+    body {
+      font-family: "Hind", sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .login {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-family: "Pacifico", cursive;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #46a049;
+    }
+
+    .prediction-text {
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+
+    .prediction-text {
+    font-size: 1.5em; 
+    font-weight: bold; 
+    color: #333; 
+    background-color: #f0f0f0; 
+    padding: 10px; 
+    border-radius: 5px; 
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="login">
+    <h1>Life Expectancy Predictor</h1>
+
+    <form action="{{ url_for('predict') }}" method="post">
+        <div class="input-group">
+            <label for="country">Country:</label>
+            <input type="number" name="country" id="country" required />
+          </div>  
+      <div class="input-group">
+        <label for="year">Year:</label>
+        <input type="number" name="Year" id="year" required />
+      </div>
+      <div class="input-group">
+        <label for="status">Status:</label>
+        <input type="text" name="Status" id="status" required />
+      </div>
+      <div class="input-group">
+        <label for="adult_mortality">Adult Mortality:</label>
+        <input type="text" name="Adult Mortality" id="adult_mortality" required />
+      </div>
+      <div class="input-group">
+        <label for="infant_deaths">Infant Deaths:</label>
+        <input type="text" name="infant deaths" id="infant_deaths" required />
+      </div>
+      <div class="input-group">
+        <label for="alcohol">Alcohol:</label>
+        <input type="text" name="Alcohol" id="alcohol" required />
+      </div>
+      <div class="input-group">
+        <label for="percentage_expenditure">Percentage Expenditure:</label>
+        <input type="text" name="percentage expenditure" id="percentage_expenditure" required />
+      </div>
+      <div class="input-group">
+        <label for="hepatitis_b">Hepatitis B:</label>
+        <input type="text" name="Hepatitis B" id="hepatitis_b" required />
+      </div>
+      <div class="input-group">
+        <label for="Measles ">Measles :</label>
+        <input type="text" name="Measles " id="measles" required />
+      </div>
+      <div class="input-group">
+        <label for=" BMI "> BMI :</label>
+        <input type="text" name=" BMI " id="bmi" required />
+      </div>
+      <div class="input-group">
+        <label for="under-five deaths ">under-five deaths :</label>
+        <input type="text" name="under-five deaths " id="under_five_deaths " required />
+      </div>
+      <div class="input-group">
+        <label for="Polio">Polio:</label>
+        <input type="text" name="Polio" id="polio" required />
+      </div>
+      <div class="input-group">
+        <label for="Total-expenditure">Total expenditure:</label>
+        <input type="text" name="Total expenditure" id="total_expenditure" required />
+      </div>
+      <div class="input-group">
+        <label for="Diphtheria">Diphtheria:</label>
+        <input type="text" name="Diphtheria" id="Diphtheria" required />
+      </div>
+      <div class="input-group">
+        <label for="HIV/AIDS"> HIV/AIDS :</label>
+        <input type="text" name="HIV/AIDS" id="HIV/AIDS" required />
+      </div>
+      <div class="input-group">
+        <label for="GDP">GDP:</label>
+        <input type="text" name="GDP" id="GDP" required />
+      </div>
+      <div class="input-group">
+        <label for="Population">Population:</label>
+        <input type="text" name="Population" id="Population" required />
+      </div>
+      <div class="input-group">
+        <label for="thinness  1-19 years">Thinness  1-19 years:</label>
+        <input type="text" name="thinness  1-19 years" id="thinness_1-19_years" required />
+      </div>
+      <div class="input-group">
+        <label for="thinness 5-9 years">Thinness 5-9 years:</label>
+        <input type="text" name="thinness 5-9 years" id="thinness_5-9_years" required />
+      </div>
+      <div class="input-group">
+        <label for="Income composition of resources">Income composition of resources:</label>
+        <input type="text" name="Income composition of resources" id="income_composition_of_resources" required />
+      </div>
+      <div class="input-group">
+        <label for="Schooling">Schooling:</label>
+        <input type="text" name="Schooling" id="schooling" required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+  
+   
+ </div>
+ {{prediction_text}}
+
+</body>
+</html>
