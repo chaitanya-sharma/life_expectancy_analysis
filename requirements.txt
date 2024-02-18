@@ -1,8 +1,4 @@
-Flask 
-scikit-learn
-matplotlib
-seaborn
-pandas
-numpy
+Flask==3.0.2
+pandas==2.2.0
+numpy==1.26.4
 torch
-gunicorn
